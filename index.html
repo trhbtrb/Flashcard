@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard Library</title>
+    <!-- Link to External CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome CDN for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pap2n6aO3A2eOJhXKdB5TjMFfucMZj+GxrUPX2PVdY+K2KymCwqjlqYB1PrXuq3+OjE9tw74j+VjhXpLg8iCtw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="library">
+        <button class="add-shelf" id="openAddShelfModal">Add New Subject Shelf</button>
+        
+        <!-- Example Subject Shelf -->
+        <div class="shelf" data-shelf-id="1">
+            <div class="shelf-header">
+                <h2 class="shelf-title">Mathematics</h2>
+                <div class="shelf-actions">
+                    <!-- Add New Flashcard Button -->
+                    <button class="add-card" onclick="openAddCardModal('1')">Add New Flashcard</button>
+                    <!-- Rename Subject Button -->
+                    <button class="rename-subject" onclick="renameSubject('1')">Rename Subject</button>
+                    <!-- Remove Subject Button -->
+                    <button class="remove-subject" onclick="removeSubject('1')">Remove Subject</button>
+                </div>
+            </div>
+            <div class="cards-container" data-shelf-id="1">
+                <!-- Example Flashcard -->
+                <div class="flashcard" data-card-id="1">
+                    <div class="flashcard-actions">
+                        <button class="action-btn rename-card-btn" onclick="openRenameCardModal('1')" title="Rename Flashcard" aria-label="Rename Flashcard">
+                            <i class="fa-solid fa-pencil"></i>
+                        </button>
+                        <button class="action-btn delete-card-btn" onclick="openRemoveCardModal('1')" title="Delete Flashcard" aria-label="Delete Flashcard">
+                            <i class="fa-regular fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="flashcard-inner" onclick="flipCard(this)">
+                        <div class="flashcard-front">
+                            <h3>What is 2 + 2?</h3>
+                        </div>
+                        <div class="flashcard-back">
+                            <p>4</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Shelf Modal -->
+    <div id="addShelfModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeAddShelfModal">&times;</span>
+            <h2>Add New Subject Shelf</h2>
+            <form id="addShelfForm" class="modal-form">
+                <label for="shelfName">Subject Name:</label>
+                <input type="text" id="shelfName" name="shelfName" maxlength="50" required>
+                <span id="shelfNameCounter" class="char-counter">50 characters remaining</span>
+                <button type="submit">Add Shelf</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Flashcard Modal -->
+    <div id="addFlashcardModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeAddFlashcardModal">&times;</span>
+            <h2>Add New Flashcard</h2>
+            <form id="addFlashcardForm" class="modal-form">
+                <label for="flashcardQuestion">Question:</label>
+                <textarea id="flashcardQuestion" name="flashcardQuestion" rows="3" maxlength="200" required></textarea>
+                <span id="flashcardQuestionCounter" class="char-counter">200 characters remaining</span>
+                
+                <label for="flashcardAnswer">Answer:</label>
+                <textarea id="flashcardAnswer" name="flashcardAnswer" rows="3" maxlength="500" required></textarea>
+                <span id="flashcardAnswerCounter" class="char-counter">500 characters remaining</span>
+                
+                <button type="submit">Add Flashcard</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Remove Shelf Confirmation Modal -->
+    <div id="removeShelfModal" class="modal confirmation-modal">
+        <div class="modal-content">
+            <p>Are you sure you want to remove this shelf and all its flashcards?</p>
+            <div class="modal-buttons">
+                <button class="confirm-btn" id="confirmRemoveShelfBtn">Yes, Remove</button>
+                <button class="cancel-btn" id="cancelRemoveShelfBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remove Flashcard Confirmation Modal -->
+    <div id="removeCardModal" class="modal confirmation-modal">
+        <div class="modal-content">
+            <p>Are you sure you want to remove this flashcard?</p>
+            <div class="modal-buttons">
+                <button class="confirm-btn" id="confirmRemoveCardBtn">Yes, Remove</button>
+                <button class="cancel-btn" id="cancelRemoveCardBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rename Shelf Modal -->
+    <div id="renameShelfModal" class="modal rename-modal" role="dialog" aria-modal="true" aria-labelledby="renameShelfTitle">
+        <div class="modal-content">
+            <span class="close" id="closeRenameShelfModal">&times;</span>
+            <h2 id="renameShelfTitle">Rename Shelf</h2>
+            <form id="renameShelfForm" class="modal-form">
+                <label for="newShelfName">New Subject Name:</label>
+                <input type="text" id="newShelfName" name="newShelfName" maxlength="50" required>
+                <span id="newShelfNameCounter" class="char-counter">50 characters remaining</span>
+                <div class="modal-buttons">
+                    <button type="submit" class="save-btn">Save</button>
+                    <button type="button" class="cancel-rename-btn" id="cancelRenameShelfBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Rename Flashcard Modal -->
+    <div id="renameCardModal" class="modal rename-modal" role="dialog" aria-modal="true" aria-labelledby="renameCardTitle">
+        <div class="modal-content">
+            <span class="close" id="closeRenameCardModal">&times;</span>
+            <h2 id="renameCardTitle">Rename Flashcard</h2>
+            <form id="renameCardForm" class="modal-form">
+                <label for="newFlashcardQuestion">New Question:</label>
+                <textarea id="newFlashcardQuestion" name="newFlashcardQuestion" rows="3" maxlength="200" required></textarea>
+                <span id="newFlashcardQuestionCounter" class="char-counter">200 characters remaining</span>
+                
+                <label for="newFlashcardAnswer">New Answer:</label>
+                <textarea id="newFlashcardAnswer" name="newFlashcardAnswer" rows="3" maxlength="500" required></textarea>
+                <span id="newFlashcardAnswerCounter" class="char-counter">500 characters remaining</span>
+                
+                <div class="modal-buttons">
+                    <button type="submit" class="save-btn">Save</button>
+                    <button type="button" class="cancel-rename-btn" id="cancelRenameCardBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Link to External JavaScript -->
+    <script src="script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,492 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+
+/* Library Container */
+.library {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Add Shelf Button */
+.add-shelf {
+    background: #6b8e23; /* Olive Green */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 40px;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.add-shelf:hover {
+    background: #5a7d1f;
+}
+
+/* Rename Subject Button */
+.rename-subject {
+    background: #007BFF; /* Blue */
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.rename-subject:hover {
+    background: #0056b3; /* Darker blue on hover */
+}
+
+/* Remove Subject Button */
+.remove-subject {
+    background: #FF4D4D; /* Red */
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.remove-subject:hover {
+    background: #E60000; /* Darker red on hover */
+}
+
+/* Shelf Styling */
+.shelf {
+    background: #8b4513; /* SaddleBrown */
+    margin-bottom: 40px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+/* Shelf Header */
+.shelf-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Shelf Title */
+.shelf-title {
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.shelf-title:hover {
+    color: #ffd700; /* Gold */
+}
+
+/* Shelf Actions */
+.shelf-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Action Buttons */
+.action-btn i {
+    font-size: 20px; /* Increase icon size */
+    color: #ffffff; /* White icons by default */
+    transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.action-btn:hover i {
+    transform: scale(1.2); /* Slightly enlarge on hover */
+    color: #ffd700; /* Change to Gold on hover */
+}
+
+.rename-shelf-btn:hover i, .rename-card-btn:hover i {
+    color: #1c86ee; /* Slightly darker blue */
+}
+
+.delete-shelf-btn i, .delete-card-btn i {
+    color: #ff4d4d; /* Red */
+}
+
+.delete-shelf-btn:hover i, .delete-card-btn:hover i {
+    color: #e60000; /* Darker red */
+}
+
+/* Rename Shelf Button - Blue */
+.rename-shelf-btn {
+    color: #1e90ff; /* Dodger Blue */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+
+
+/* Delete Shelf Button - Red */
+.delete-shelf-btn {
+    color: #ff4d4d; /* Red */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+/* Shelf Controls */
+.shelf-controls {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Action Buttons - Matching Add Card Style */
+.shelf-actions-inline .action-btn {
+    background: #4a6741; /* Same as add-card button */
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+/* Delete Button Specific Style */
+.shelf-actions-inline .delete-shelf-btn {
+    background: #dc3545; /* Red color for delete action */
+}
+
+.shelf-actions-inline .delete-shelf-btn:hover {
+    background: #c82333;
+}
+
+/* Rename Button Specific Style */
+.shelf-actions-inline .rename-shelf-btn:hover {
+    background: #3e5941;
+}
+
+/* Container for inline action buttons */
+.shelf-actions-inline {
+    display: flex;
+    gap: 10px;
+}
+
+
+/* Add Flashcard Button */
+.add-card {
+    background: #4a6741; /* Dark Olive Green */
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.add-card:hover {
+    background: #3e5941;
+}
+
+/* Cards Container */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    background: #a0522d; /* Sienna */
+    border-radius: 5px;
+}
+
+/* Flashcard Styling */
+.flashcard {
+    height: 150px;
+    perspective: 1000px;
+    cursor: pointer;
+    position: relative;
+    border-radius: 10px;
+}
+
+
+
+/* Flashcard Actions */
+.flashcard-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 8px; /* Adjusted gap for better spacing */
+    z-index: 10;
+}
+
+/* Make action buttons always visible, smaller size */
+.flashcard-actions .action-btn {
+    display: flex; /* Changed from none/block to flex for alignment */
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px; /* Smaller width */
+    height: 24px; /* Smaller height */
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+
+
+/* Specific Styles for Rename and Delete Buttons */
+.flashcard-actions .rename-card-btn {
+    background-color: #1e90ff; /* Dodger Blue */
+}
+
+.flashcard-actions .rename-card-btn:hover {
+    background-color: #1c86ee; /* Slightly darker blue */
+}
+
+.flashcard-actions .delete-card-btn {
+    background-color: #ff4d4d; /* Light Red */
+}
+
+.flashcard-actions .delete-card-btn:hover {
+    background-color: #e60000; /* Darker Red */
+}
+
+/* Remove any previous hover-based display rules */
+
+
+/* Flashcard Inner */
+.flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: 10px;
+}
+
+/* Flipped State */
+.flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+}
+
+/* Flashcard Front and Back */
+.flashcard-front, .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.flashcard-front {
+    background-color: white;
+    color: #333;
+}
+
+.flashcard-back {
+    background-color: #f8f8f8;
+    color: #333;
+    transform: rotateY(180deg);
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 10% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 500px; /* Could be more or less, depending on screen size */
+    border-radius: 10px;
+    position: relative;
+    animation: fadeIn 0.3s;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Close Button */
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* Modal Form Labels */
+.modal-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Modal Form Inputs */
+.modal-form input, .modal-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Modal Form Buttons */
+.modal-form button {
+    background: #4a6741; /* Dark Olive Green */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.modal-form button:hover {
+    background: #3e5941;
+}
+
+/* Confirmation Modal Styles */
+.confirmation-modal .modal-content {
+    max-width: 400px;
+}
+
+.confirmation-modal p {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.confirmation-modal .modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Confirmation Buttons */
+.confirmation-modal .modal-buttons button {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.confirmation-modal .confirm-btn {
+    background: #dc3545; /* Red */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.confirmation-modal .confirm-btn:hover {
+    background: #c82333;
+}
+
+.confirmation-modal .cancel-btn {
+    background: #6c757d; /* Gray */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.confirmation-modal .cancel-btn:hover {
+    background: #5a6268;
+}
+
+/* Rename Modal Styles */
+.rename-modal .modal-content {
+    max-width: 400px;
+}
+
+.rename-modal .modal-form label {
+    font-weight: bold;
+}
+
+.rename-modal .modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.rename-modal .modal-buttons button {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+/* Save and Cancel Rename Buttons */
+.save-btn {
+    background: #28a745; /* Green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.save-btn:hover {
+    background: #218838;
+}
+
+.cancel-rename-btn {
+    background: #6c757d; /* Gray */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.cancel-rename-btn:hover {
+    background: #5a6268;
+}
